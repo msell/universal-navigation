@@ -19,12 +19,12 @@ const linking = {
   // TODO: add your domain to prefixes for universal
   // https://reactnavigation.org/docs/deep-linking/#universal-links
   prefixes: [prefix],
-  // config: {
-  //   screens: {
-  //     Cases: "cases",
-  //     CaseDetails: "cases/:id",
-  //   },
-  // },
+  config: {
+    screens: {
+      Cases: "cases",
+      CaseDetails: "cases/:id",
+    },
+  },
 };
 export default function App() {
   const navigationRef = React.useRef<NavigationContainerRef>(null);

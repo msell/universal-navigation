@@ -15,7 +15,7 @@ interface CaseProps {
 export const Case: React.FC<CaseProps> = ({ id }) => {
   return (
     <Link
-      to={`/CaseDetails?id=${id}`}
+      to={`/cases/${id}`}
       target={Platform.OS === "web" ? "_blank" : undefined}
     >
       <TouchableOpacity style={styles.container}>
