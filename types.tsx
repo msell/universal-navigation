@@ -3,4 +3,5 @@ export type RootStackParamList = {
   CaseDashboard: undefined;
   CaseDetails: undefined;
   NotFound: undefined;
+  Modal: undefined;
 };

@@ -1,5 +1,11 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity, Text, Platform } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  Platform,
+  Button,
+} from "react-native";
 import { Link } from "@react-navigation/native";
 
 interface CaseProps {

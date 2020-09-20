@@ -9,9 +9,11 @@ import { useReduxDevToolsExtension } from "@react-navigation/devtools";
 import { createStackNavigator } from "@react-navigation/stack";
 import { CaseDashboardScreen } from "./screens/CaseDashboardScreen";
 import { CaseDetailsScreen } from "./screens/CaseDetailsScreen";
+import { ModalScreen } from "./screens/ModalScreen";
+
 import * as Linking from "expo-linking";
 
-const Stack = createStackNavigator();
+const RootStack = createStackNavigator();
 const prefix = Linking.makeUrl("/");
 const linking = {
   // TODO: add your domain to prefixes for universal
@@ -25,13 +27,15 @@ export default function App() {
 
   return (
     <NavigationContainer linking={linking} ref={navigationRef}>
-      <Stack.Navigator
+      <RootStack.Navigator
+        mode="modal"
         headerMode={Platform.OS === "web" ? "none" : "screen"}
         initialRouteName="Cases"
       >
-        <Stack.Screen name="Cases" component={CaseDashboardScreen} />
-        <Stack.Screen name="CaseDetails" component={CaseDetailsScreen} />
-      </Stack.Navigator>
+        <RootStack.Screen name="Cases" component={CaseDashboardScreen} />
+        <RootStack.Screen name="CaseDetails" component={CaseDetailsScreen} />
+        <RootStack.Screen name="Modal" component={ModalScreen} />
+      </RootStack.Navigator>
     </NavigationContainer>
   );
 }
