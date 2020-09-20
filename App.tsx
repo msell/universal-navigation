@@ -1,5 +1,6 @@
 // import { StatusBar } from "expo-status-bar";
 import React from "react";
+import { Platform } from "react-native";
 import {
   NavigationContainer,
   NavigationContainerRef,
@@ -24,7 +25,10 @@ export default function App() {
 
   return (
     <NavigationContainer linking={linking} ref={navigationRef}>
-      <Stack.Navigator initialRouteName="Cases">
+      <Stack.Navigator
+        headerMode={Platform.OS === "web" ? "none" : "screen"}
+        initialRouteName="Cases"
+      >
         <Stack.Screen name="Cases" component={CaseDashboardScreen} />
         <Stack.Screen name="CaseDetails" component={CaseDetailsScreen} />
       </Stack.Navigator>
