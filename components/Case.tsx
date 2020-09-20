@@ -1,26 +1,21 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity, Text } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, TouchableOpacity, Text, Platform } from "react-native";
+import { Link } from "@react-navigation/native";
 
 interface CaseProps {
   id: string | number;
 }
 
 export const Case: React.FC<CaseProps> = ({ id }) => {
-  const navigation = useNavigation();
-
   return (
-    <TouchableOpacity
-      onPress={() => {
-        // todo: navigate to /cases/:id
-        navigation.navigate("CaseDetails", {
-          id,
-        });
-      }}
-      style={styles.container}
+    <Link
+      to={`/CaseDetails?id=${id}`}
+      target={Platform.OS === "web" ? "_blank" : undefined}
     >
-      <Text>{`Case ${id}`}</Text>
-    </TouchableOpacity>
+      <TouchableOpacity style={styles.container}>
+        <Text>{`Case ${id}`}</Text>
+      </TouchableOpacity>
+    </Link>
   );
 };
 

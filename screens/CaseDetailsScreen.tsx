@@ -18,5 +18,6 @@ export const CaseDetailsScreen: React.FC<StackScreenProps<
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#724CF9",
   },
 });
