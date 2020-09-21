@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import { CaseDashboardLayout } from "../layouts/CaseDashboardLayout";
 import { Link } from "@react-navigation/native";
+import commonStyle from "../styles/commonStyle";
+import palette from "../styles/palette";
 
 interface ClosedCasesScreenProps {}
 const cases = [11, 12, 13, 14, 15];
@@ -26,7 +28,7 @@ export const ClosedCasesScreen: React.FC<ClosedCasesScreenProps> = ({}) => {
             >
               <TouchableOpacity>
                 <View>
-                  <Text>{`Case ${id}`}</Text>
+                  <Text style={commonStyle.h1}>{`Case ${id}`}</Text>
                 </View>
               </TouchableOpacity>
             </Link>
@@ -41,6 +43,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    backgroundColor: palette.lightBlue,
   },
   caseWrapper: {
     padding: 20,
@@ -48,7 +51,7 @@ const styles = StyleSheet.create({
   },
   case: {
     height: 80,
-    backgroundColor: "#e9c46a",
+    backgroundColor: palette.darkBlue,
     marginVertical: 3,
     padding: 10,
   },

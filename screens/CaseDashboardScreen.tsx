@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../types";
 import { Case } from "../components/Case";
@@ -13,8 +13,6 @@ export const CaseDashboardScreen: React.FC<Props> = ({ navigation }) => {
   return (
     <CaseDashboardLayout>
       <View style={styles.container}>
-        <Text>Case Dashboard Screen</Text>
-
         <View style={styles.grid}>
           {cases.map((c) => (
             <Case key={c} id={c} />
@@ -29,7 +27,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    paddingTop: 50,
   },
   grid: {
     justifyContent: "center",

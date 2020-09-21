@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../types";
+import palette from "../styles/palette";
 
 const ModalContents = () => (
   <View>
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#724CF9",
+    backgroundColor: palette.lightBlue,
   },
   text: {
     fontSize: 30,

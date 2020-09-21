@@ -1,6 +1,8 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import { CaseDashboardHeader } from "../components/CaseDashboardHeader";
+import palette from "../styles/palette";
+
 interface CaseDashboardLayoutProps {}
 
 export const CaseDashboardLayout: React.FC<CaseDashboardLayoutProps> = ({
@@ -17,5 +19,6 @@ export const CaseDashboardLayout: React.FC<CaseDashboardLayoutProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: palette.lightBlue,
   },
 });

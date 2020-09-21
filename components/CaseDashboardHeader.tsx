@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Link } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
+import palette from "../styles/palette";
 
 interface CaseDashboardHeaderProps {}
 
@@ -31,7 +32,6 @@ export const CaseDashboardHeader: React.FC<CaseDashboardHeaderProps> = ({}) => {
           Closed Cases
         </Text>
       </Link>
-      {/* <Text style={styles.item}>{route.name}</Text> */}
     </View>
   );
 };
@@ -39,7 +39,7 @@ export const CaseDashboardHeader: React.FC<CaseDashboardHeaderProps> = ({}) => {
 const styles = StyleSheet.create({
   container: {
     height: 60,
-    backgroundColor: "orange",
+    backgroundColor: palette.darkYellow,
     flexDirection: "row",
     alignItems: "center",
   },
