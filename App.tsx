@@ -23,6 +23,7 @@ const linking = {
       CaseDetails: "cases/:id",
       Jobs: "jobs",
       JobDetails: "jobs/:id",
+      Signin: "signin",
       NotFound: "*",
     },
   },
