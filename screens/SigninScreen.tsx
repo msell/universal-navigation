@@ -7,11 +7,17 @@ interface SigninScreenProps {}
 
 export const SigninScreen: React.FC<SigninScreenProps> = ({}) => {
   const { dispatch } = React.useContext(AuthContext);
+  const [email, setEmail] = React.useState("");
   return (
     <View style={styles.container}>
       <View style={styles.formWrapper}>
         <Text style={commonStyle.h1}>Login</Text>
-        <TextInput style={styles.field} placeholder="email"></TextInput>
+        <TextInput
+          defaultValue={email}
+          onChangeText={(text) => setEmail(text)}
+          style={styles.field}
+          placeholder="email"
+        ></TextInput>
         <TextInput
           secureTextEntry={true}
           style={styles.field}
@@ -23,7 +29,7 @@ export const SigninScreen: React.FC<SigninScreenProps> = ({}) => {
             onPress={() =>
               dispatch!({
                 type: "SIGN_IN",
-                email: "foo",
+                email,
                 password: "bar",
               })
             }
