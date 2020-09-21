@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../types";
-// import { pal}
+
 interface ModalScreenProps {}
 
 // https://reactnavigation.org/docs/modal/
@@ -23,5 +23,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#D9D0DE",
   },
 });
