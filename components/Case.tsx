@@ -10,14 +10,15 @@ interface CaseProps {
 
 export const Case: React.FC<CaseProps> = ({ id }) => {
   return (
-    <Link
-      to={`/cases/${id}`}
-      target={Platform.OS === "web" ? "_blank" : undefined}
-    >
-      <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container}>
+      <Link
+        style={{ flex: 1 }}
+        to={`/cases/${id}`}
+        target={Platform.OS === "web" ? "_blank" : undefined}
+      >
         <Text style={commonStyle.h1}>{`Case ${id}`}</Text>
-      </TouchableOpacity>
-    </Link>
+      </Link>
+    </TouchableOpacity>
   );
 };
 
