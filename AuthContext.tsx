@@ -27,7 +27,6 @@ const reducer = (state: AuthState, action: Action): AuthState => {
         loading: false,
       };
     case "SIGN_IN":
-      AsyncStorage.setItem("isAuthenticated", "true");
       return {
         loading: false,
         authenticated: true,
@@ -36,7 +35,6 @@ const reducer = (state: AuthState, action: Action): AuthState => {
           : "controller",
       };
     case "SIGN_OUT":
-      AsyncStorage.clear();
       return { authenticated: false, loading: false };
 
     default:
@@ -64,6 +62,11 @@ export const AuthContextProvider: React.FC = ({ children }) => {
         .catch((e) => console.error(e));
     }
   }, [state.loading]);
+  React.useEffect(() => {
+    state.authenticated === true
+      ? AsyncStorage.setItem("isAuthenticated", "true")
+      : AsyncStorage.clear();
+  }, [state.authenticated]);
   return (
     <AuthContext.Provider value={{ state, dispatch }}>
       {children}
