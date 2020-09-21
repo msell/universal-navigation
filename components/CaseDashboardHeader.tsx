@@ -38,7 +38,7 @@ export const CaseDashboardHeader: React.FC<CaseDashboardHeaderProps> = ({}) => {
       <View style={styles.signout}>
         <Button
           title="Sign Out"
-          onPress={() => dispatch!({ type: "SIGN_OUT" })}
+          onPress={() => dispatch!({ type: "REQUEST_SIGN_OUT" })}
         />
       </View>
     </View>
