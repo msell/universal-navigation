@@ -6,7 +6,7 @@ import { AuthContext } from "../AuthContext";
 interface SigninScreenProps {}
 
 export const SigninScreen: React.FC<SigninScreenProps> = ({}) => {
-  const { signIn } = React.useContext(AuthContext);
+  const { dispatch } = React.useContext(AuthContext);
   return (
     <View style={styles.container}>
       <View style={styles.formWrapper}>
@@ -18,7 +18,16 @@ export const SigninScreen: React.FC<SigninScreenProps> = ({}) => {
           placeholder="password"
         ></TextInput>
         <View style={{ marginTop: 5 }}>
-          <Button title="Submit" onPress={() => signIn!("foo", "bar")} />
+          <Button
+            title="Submit"
+            onPress={() =>
+              dispatch!({
+                type: "SIGN_IN",
+                email: "foo",
+                password: "bar",
+              })
+            }
+          />
         </View>
       </View>
     </View>

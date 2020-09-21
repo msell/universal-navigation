@@ -8,7 +8,7 @@ interface CaseDashboardHeaderProps {}
 
 export const CaseDashboardHeader: React.FC<CaseDashboardHeaderProps> = ({}) => {
   const route = useRoute();
-  const { signOut } = React.useContext(AuthContext);
+  const { dispatch } = React.useContext(AuthContext);
   return (
     <View style={styles.container}>
       <View style={styles.navigation}>
@@ -36,7 +36,10 @@ export const CaseDashboardHeader: React.FC<CaseDashboardHeaderProps> = ({}) => {
         </Link>
       </View>
       <View style={styles.signout}>
-        <Button title="Sign Out" onPress={() => signOut!()} />
+        <Button
+          title="Sign Out"
+          onPress={() => dispatch!({ type: "SIGN_OUT" })}
+        />
       </View>
     </View>
   );
