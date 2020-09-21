@@ -9,6 +9,7 @@ import { useReduxDevToolsExtension } from "@react-navigation/devtools";
 import { createStackNavigator } from "@react-navigation/stack";
 import { CaseDashboardScreen } from "./screens/CaseDashboardScreen";
 import { CaseDetailsScreen } from "./screens/CaseDetailsScreen";
+import { ClosedCasesScreen } from "./screens/ClosedCasesScreen";
 import { ModalScreen } from "./screens/ModalScreen";
 
 import * as Linking from "expo-linking";
@@ -22,7 +23,10 @@ const linking = {
   config: {
     screens: {
       Cases: "cases",
+      ClosedCases: "cases/closed",
       CaseDetails: "cases/:id",
+      Jobs: "jobs",
+      JobDetails: "jobs/:id",
     },
   },
 };
@@ -39,6 +43,7 @@ export default function App() {
         initialRouteName="Cases"
       >
         <RootStack.Screen name="Cases" component={CaseDashboardScreen} />
+        <RootStack.Screen name="ClosedCases" component={ClosedCasesScreen} />
         <RootStack.Screen name="CaseDetails" component={CaseDetailsScreen} />
         <RootStack.Screen name="Modal" component={ModalScreen} />
       </RootStack.Navigator>
