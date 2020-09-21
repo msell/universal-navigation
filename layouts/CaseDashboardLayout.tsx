@@ -7,6 +7,7 @@ import {
   ScrollView,
 } from "react-native";
 import { CaseDashboardHeader } from "../components/CaseDashboardHeader";
+import { NewCaseForm } from "../components/NewCaseForm";
 import palette from "../styles/palette";
 import { Dialog } from "../components/Dialog";
 import commonStyles from "../styles/commonStyle";
@@ -23,7 +24,9 @@ export const CaseDashboardLayout: React.FC<CaseDashboardLayoutProps> = ({
         <Dialog
           active={showNewCaseDialog}
           onDismiss={() => setShowNewCaseDialog(false)}
-        />
+        >
+          <NewCaseForm />
+        </Dialog>
       )}
       <CaseDashboardHeader />
 

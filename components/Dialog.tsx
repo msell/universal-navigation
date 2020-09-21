@@ -7,13 +7,18 @@ import {
   TouchableHighlight,
   View,
 } from "react-native";
+import palette from "../styles/palette";
 
 interface DialogProps {
   active: boolean;
   onDismiss: () => void;
 }
 
-export const Dialog: React.FC<DialogProps> = ({ active, onDismiss }) => {
+export const Dialog: React.FC<DialogProps> = ({
+  active,
+  onDismiss,
+  children,
+}) => {
   return (
     <View testID="overlay" style={styles.overlay}>
       <View testID="centeredView" style={styles.centeredView}>
@@ -27,13 +32,13 @@ export const Dialog: React.FC<DialogProps> = ({ active, onDismiss }) => {
           }}
         >
           <View testID="modalView" style={styles.modalView}>
-            <Text style={styles.modalText}>{`Insert Create Case Form`}</Text>
+            {children}
 
             <TouchableHighlight
-              style={{ backgroundColor: "#2196F3", padding: 10 }}
+              style={{ backgroundColor: "#2196F3", padding: 10, width: 200 }}
               onPress={onDismiss}
             >
-              <Text style={styles.textStyle}>Hide Modal</Text>
+              <Text style={styles.textStyle}>Cancel</Text>
             </TouchableHighlight>
           </View>
         </Modal>
@@ -55,11 +60,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-
     zIndex: 10,
   },
   modalView: {
-    backgroundColor: "white",
+    backgroundColor: "#fff",
     borderRadius: 2,
     padding: 35,
     alignItems: "center",

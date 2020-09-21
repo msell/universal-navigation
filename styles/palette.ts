@@ -6,4 +6,6 @@ export default {
   lightYellow: "#FFD500",
   black: "#222",
   white: "#fff",
+  gray: "rgba(92, 103, 125)",
+  semiGray: "rgba(92, 103, 125, .6)",
 };
