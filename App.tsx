@@ -9,6 +9,7 @@ import * as Linking from "expo-linking";
 import { AuthContextProvider } from "./AuthContext";
 import { AuthNavigator } from "./navigation/AuthNavigator";
 import { RootNavigator } from "./navigation/RootNavigator";
+import { MechanicNavigator } from "./navigation/MechanicNavigator";
 import { AuthContext } from "./AuthContext";
 
 const prefix = Linking.makeUrl("/");
@@ -35,7 +36,15 @@ const Main = (): JSX.Element => {
   const { state } = React.useContext(AuthContext);
   return (
     <NavigationContainer linking={linking} ref={navigationRef}>
-      {state?.authenticated ? <RootNavigator /> : <AuthNavigator />}
+      {state?.authenticated ? (
+        state.role === "mechanic" ? (
+          <MechanicNavigator />
+        ) : (
+          <RootNavigator />
+        )
+      ) : (
+        <AuthNavigator />
+      )}
     </NavigationContainer>
   );
 };
