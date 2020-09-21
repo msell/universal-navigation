@@ -8,59 +8,59 @@ import {
   View,
 } from "react-native";
 
-interface DialogProps {}
+interface DialogProps {
+  active: boolean;
+  onDismiss: () => void;
+}
 
-export const Dialog: React.FC<DialogProps> = ({}) => {
-  const [modalVisible, setModalVisible] = React.useState(false);
+export const Dialog: React.FC<DialogProps> = ({ active, onDismiss }) => {
   return (
-    <View style={styles.centeredView}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
+    <View testID="overlay" style={styles.overlay}>
+      <View testID="centeredView" style={styles.centeredView}>
+        <Modal
+          animationType="fade"
+          presentationStyle="overFullScreen"
+          transparent={true}
+          visible={active}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+          }}
+        >
+          <View testID="modalView" style={styles.modalView}>
+            <Text style={styles.modalText}>{`Insert Create Case Form`}</Text>
 
             <TouchableHighlight
-              style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-              onPress={() => {
-                setModalVisible(!modalVisible);
-              }}
+              style={{ backgroundColor: "#2196F3", padding: 10 }}
+              onPress={onDismiss}
             >
               <Text style={styles.textStyle}>Hide Modal</Text>
             </TouchableHighlight>
           </View>
-        </View>
-      </Modal>
-
-      <TouchableHighlight
-        style={styles.openButton}
-        onPress={() => {
-          setModalVisible(true);
-        }}
-      >
-        <Text style={styles.textStyle}>Show Modal</Text>
-      </TouchableHighlight>
+        </Modal>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  overlay: {
+    zIndex: 20,
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(92, 103, 125, .6)",
+  },
   centeredView: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22,
+    alignSelf: "center",
+
+    zIndex: 10,
   },
   modalView: {
-    margin: 20,
     backgroundColor: "white",
-    borderRadius: 20,
+    borderRadius: 2,
     padding: 35,
     alignItems: "center",
     shadowColor: "#000",
@@ -70,14 +70,9 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5,
-  },
-  openButton: {
-    backgroundColor: "#F194FF",
-    borderRadius: 20,
-    padding: 10,
     elevation: 2,
   },
+
   textStyle: {
     color: "white",
     fontWeight: "bold",
