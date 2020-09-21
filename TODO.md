@@ -1,7 +1,7 @@
 # Todos
 
-- [ ] handle 404
-- [ ] configure links
+- [x] handle 404
+- [x] configure links
 - [ ] add auth flow
 - [ ] show different home screen depending on who signs in
 - [x] full screen modal

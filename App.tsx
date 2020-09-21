@@ -11,7 +11,7 @@ import { CaseDashboardScreen } from "./screens/CaseDashboardScreen";
 import { CaseDetailsScreen } from "./screens/CaseDetailsScreen";
 import { ClosedCasesScreen } from "./screens/ClosedCasesScreen";
 import { ModalScreen } from "./screens/ModalScreen";
-
+import { NotFoundScreen } from "./screens/NotFoundScreen";
 import * as Linking from "expo-linking";
 
 const RootStack = createStackNavigator();
@@ -27,6 +27,7 @@ const linking = {
       CaseDetails: "cases/:id",
       Jobs: "jobs",
       JobDetails: "jobs/:id",
+      NotFound: "*",
     },
   },
 };
@@ -46,6 +47,7 @@ export default function App() {
         <RootStack.Screen name="ClosedCases" component={ClosedCasesScreen} />
         <RootStack.Screen name="CaseDetails" component={CaseDetailsScreen} />
         <RootStack.Screen name="Modal" component={ModalScreen} />
+        <RootStack.Screen name="NotFound" component={NotFoundScreen} />
       </RootStack.Navigator>
     </NavigationContainer>
   );
