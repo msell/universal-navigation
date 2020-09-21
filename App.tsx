@@ -23,6 +23,7 @@ const linking = {
       ClosedCases: "cases/closed",
       CaseDetails: "cases/:id",
       Jobs: "jobs",
+      MyJobs: "jobs/my",
       JobDetails: "jobs/:id",
       Signin: "signin",
       NotFound: "*",
