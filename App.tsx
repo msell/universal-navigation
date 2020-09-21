@@ -1,21 +1,16 @@
 // import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { Platform } from "react-native";
 import {
   NavigationContainer,
   NavigationContainerRef,
 } from "@react-navigation/native";
 import { useReduxDevToolsExtension } from "@react-navigation/devtools";
-import { createStackNavigator } from "@react-navigation/stack";
-import { CaseDashboardScreen } from "./screens/CaseDashboardScreen";
-import { CaseDetailsScreen } from "./screens/CaseDetailsScreen";
-import { ClosedCasesScreen } from "./screens/ClosedCasesScreen";
-import { ModalScreen } from "./screens/ModalScreen";
-import { NotFoundScreen } from "./screens/NotFoundScreen";
 import * as Linking from "expo-linking";
-import { SigninScreen } from "./screens/SigninScreen";
 import { AuthContext } from "./AuthContext";
-const RootStack = createStackNavigator();
+import { AuthNavigator } from "./navigation/AuthNavigator";
+import { RootNavigator } from "./navigation/RootNavigator";
+import AsyncStorage from "@react-native-community/async-storage";
+
 const prefix = Linking.makeUrl("/");
 const linking = {
   // TODO: add your domain to prefixes for universal
@@ -28,53 +23,42 @@ const linking = {
       CaseDetails: "cases/:id",
       Jobs: "jobs",
       JobDetails: "jobs/:id",
-      SignIn: "signin",
       NotFound: "*",
     },
   },
 };
+
 export default function App() {
-  const navigationRef = React.useRef<NavigationContainerRef>(null);
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const navigationRef = React.useRef<NavigationContainerRef>(null);
+  React.useEffect(() => {
+    const lookupAuth = async () => {
+      try {
+        const result = await AsyncStorage.getItem("isAuthenticated");
+        console.log({ result, isAuth: !!result && result === "true" });
+        setIsAuthenticated(!!result && result === "true");
+      } catch (e) {}
+    };
+    lookupAuth();
+  }, []);
 
   useReduxDevToolsExtension(navigationRef);
-
   return (
     <AuthContext.Provider
       value={{
         authenticated: isAuthenticated,
         signIn: (email, password) => {
+          AsyncStorage.setItem("isAuthenticated", "true");
           setIsAuthenticated(true);
         },
-        signOut: () => setIsAuthenticated(false),
+        signOut: () => {
+          AsyncStorage.clear();
+          setIsAuthenticated(false);
+        },
       }}
     >
       <NavigationContainer linking={linking} ref={navigationRef}>
-        <RootStack.Navigator
-          mode="modal"
-          headerMode={Platform.OS === "web" ? "none" : "screen"}
-          initialRouteName={isAuthenticated ? "Cases" : "Signin"}
-        >
-          {isAuthenticated ? (
-            <>
-              <RootStack.Screen name="Cases" component={CaseDashboardScreen} />
-              <RootStack.Screen
-                name="ClosedCases"
-                component={ClosedCasesScreen}
-              />
-              <RootStack.Screen
-                name="CaseDetails"
-                component={CaseDetailsScreen}
-              />
-              <RootStack.Screen name="Modal" component={ModalScreen} />
-              <RootStack.Screen name="NotFound" component={NotFoundScreen} />
-            </>
-          ) : (
-            <>
-              <RootStack.Screen name="SignIn" component={SigninScreen} />
-            </>
-          )}
-        </RootStack.Navigator>
+        {isAuthenticated ? <RootNavigator /> : <AuthNavigator />}
       </NavigationContainer>
     </AuthContext.Provider>
   );
