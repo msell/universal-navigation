@@ -1,8 +1,9 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, Platform, Image } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../types";
 import palette from "../styles/palette";
+import * as ImagePicker from 'expo-image-picker'
 
 const ModalContents = () => (
   <View>
@@ -21,15 +22,66 @@ const ModalContents = () => (
     </Text>
   </View>
 );
+
+const getBlob = async (uri: string) => {
+  await new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+      resolve(xhr.response)
+    }
+    xhr.onerror = function (e) {
+      console.log(e)
+      reject(new TypeError('Network request failed'))
+    }
+    xhr.responseType = 'blob'
+    xhr.open('GET', uri, true)
+    xhr.send(null)
+  })
+}
+
 export const CaseDetailsScreen: React.FC<StackScreenProps<
   RootStackParamList,
   "CaseDetails"
 >> = ({ route, navigation }) => {
+  React.useEffect(() => {
+    const checkPermissions = async () => {
+      if (Platform.OS !== 'web') {
+        const { status } = await ImagePicker.requestCameraRollPermissionsAsync()
+        if (status !== 'granted') {
+          alert('You need to allow camera roll permissions')
+        }
+      }
+    }
+
+    checkPermissions()
+  }, [])
+
+  const [uri, setUri] = React.useState<string>()
+
+  const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      aspect: [4, 3],
+      quality: 1
+    })
+
+    if (!result.cancelled) {
+      setUri(result.uri)
+    }
+  }
+
   const { id } = route.params!;
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{`Case ${id}`}</Text>
       <View style={styles.button}>
+        <Button title="Select Photo" onPress={pickImage}></Button>
+        {uri && <>
+          <Image source={{ uri }} style={{ width: 200, height: 200, borderRadius: 50 }} />
+          <Button title="Get Blob" onPress={() => getBlob(uri)} />
+        </>
+
+        }
         <Button
           title="Open Modal"
           onPress={() => navigation.navigate("Modal")}
