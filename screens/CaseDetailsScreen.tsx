@@ -24,19 +24,25 @@ const ModalContents = () => (
 );
 
 const getBlob = async (uri: string) => {
-  await new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest()
-    xhr.onload = function () {
-      resolve(xhr.response)
-    }
-    xhr.onerror = function (e) {
-      console.log(e)
-      reject(new TypeError('Network request failed'))
-    }
-    xhr.responseType = 'blob'
-    xhr.open('GET', uri, true)
-    xhr.send(null)
-  })
+  try {
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest()
+      xhr.onload = function () {
+        resolve(xhr.response)
+      }
+      xhr.onerror = function (e) {
+        console.log(e)
+        reject(new TypeError(`XHR failed ${JSON.stringify(e)}`))
+      }
+      xhr.responseType = 'blob'
+      xhr.open('GET', uri, true)
+      xhr.send(null)
+    })
+
+    alert(`🎩 blob: ${JSON.stringify(blob)}`)
+  } catch (error) {
+    alert(`💩 ${error.message}`)
+  }
 }
 
 export const CaseDetailsScreen: React.FC<StackScreenProps<
