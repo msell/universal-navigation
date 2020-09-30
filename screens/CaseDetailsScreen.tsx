@@ -25,19 +25,8 @@ const ModalContents = () => (
 
 const getBlob = async (uri: string) => {
   try {
-    const blob = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest()
-      xhr.onload = function () {
-        resolve(xhr.response)
-      }
-      xhr.onerror = function (e) {
-        console.log(e)
-        reject(new TypeError(`XHR failed ${JSON.stringify(e)}`))
-      }
-      xhr.responseType = 'blob'
-      xhr.open('GET', uri, true)
-      xhr.send(null)
-    })
+    const response = await fetch(uri)
+    const blob = await response.blob()
 
     alert(`🎩 blob: ${JSON.stringify(blob)}`)
   } catch (error) {
