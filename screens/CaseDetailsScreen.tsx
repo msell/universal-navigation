@@ -43,7 +43,6 @@ const getBlob = async (uri: string) => {
   } catch (error) {
     alert(`💩 ${error.message}`)
   }
-
 }
 
 export const CaseDetailsScreen: React.FC<StackScreenProps<
