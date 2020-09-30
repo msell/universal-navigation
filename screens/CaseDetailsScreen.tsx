@@ -5,6 +5,21 @@ import { RootStackParamList } from "../types";
 import palette from "../styles/palette";
 import * as ImagePicker from 'expo-image-picker'
 
+function urlToBlob(url: string) {
+  return new Promise((resolve, reject) => {
+    var xhr = new XMLHttpRequest();
+    xhr.onerror = reject;
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        resolve(xhr.response);
+      }
+    };
+    xhr.open('GET', url);
+    xhr.responseType = 'blob'; // convert type
+    xhr.send();
+  })
+}
+
 const ModalContents = () => (
   <View>
     <Text>
@@ -51,8 +66,7 @@ const ModalContents = () => (
 
 const getBlob = async (uri: string) => {
   try {
-    const response = await fetch(uri)
-    const blob = await response.blob()
+    const blob = await urlToBlob(uri)
 
     alert(`🎩 blob: ${JSON.stringify(blob)}`)
   } catch (error) {
