@@ -4,8 +4,9 @@ import palette from "./palette";
 export default StyleSheet.create({
   h1: {
     color: palette.white,
-    fontSize: 30,
+    fontSize: 50,
     fontWeight: "bold",
+    fontFamily: "Bangers_400Regular",
   },
   textInput: {
     backgroundColor: "#fff",

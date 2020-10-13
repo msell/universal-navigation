@@ -11,6 +11,8 @@ import { AuthNavigator } from "./navigation/AuthNavigator";
 import { RootNavigator } from "./navigation/RootNavigator";
 import { MechanicNavigator } from "./navigation/MechanicNavigator";
 import { AuthContext } from "./AuthContext";
+import { AppLoading } from "expo";
+import { useFonts, Bangers_400Regular } from "@expo-google-fonts/bangers";
 
 const prefix = Linking.makeUrl("/");
 const linking = {
@@ -32,9 +34,17 @@ const linking = {
 };
 
 const Main = (): JSX.Element => {
+  let [fontsLoaded] = useFonts({
+    Bangers_400Regular,
+  });
   const navigationRef = React.useRef<NavigationContainerRef>(null);
   useReduxDevToolsExtension(navigationRef);
   const { state } = React.useContext(AuthContext);
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
     <NavigationContainer linking={linking} ref={navigationRef}>
       {state?.authenticated ? (
