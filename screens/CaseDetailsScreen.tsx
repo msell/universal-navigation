@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Button, Platform, Image } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../types";
 import palette from "../styles/palette";
-import * as ImagePicker from 'expo-image-picker'
+import * as ImagePicker from "expo-image-picker";
 
 function urlToBlob(url: string) {
   return new Promise((resolve, reject) => {
@@ -14,10 +14,10 @@ function urlToBlob(url: string) {
         resolve(xhr.response);
       }
     };
-    xhr.open('GET', url);
-    xhr.responseType = 'blob'; // convert type
+    xhr.open("GET", url);
+    xhr.responseType = "blob"; // convert type
     xhr.send();
-  })
+  });
 }
 
 const ModalContents = () => (
@@ -38,85 +38,53 @@ const ModalContents = () => (
   </View>
 );
 
-/* I also tried swapping out the fetch implementation for the approach here:
-   https://github.com/expo/expo/issues/2402#issuecomment-443726662
-   The result was the same
-*/
-// const getBlob = async (uri: string) => {
-//   try {
-//     const blob = await new Promise((resolve, reject) => {
-//       const xhr = new XMLHttpRequest()
-//       xhr.onload = function () {
-//         resolve(xhr.response)
-//       }
-//       xhr.onerror = function (e) {
-//         console.log(e)
-//         reject(new TypeError(`XHR failed ${JSON.stringify(e)}`))
-//       }
-//       xhr.responseType = 'blob'
-//       xhr.open('GET', uri, true)
-//       xhr.send(null)
-//     })
-
-//     alert(`🎩 blob: ${JSON.stringify(blob)}`)
-//   } catch (error) {
-//     alert(`💩 ${error.message}`)
-//   }
-// }
-
-const getBlob = async (uri: string) => {
-  try {
-    const blob = await urlToBlob(uri)
-
-    alert(`🎩 blob: ${JSON.stringify(blob)}`)
-  } catch (error) {
-    alert(`💩 ${error.message}`)
-  }
-}
-
 export const CaseDetailsScreen: React.FC<StackScreenProps<
   RootStackParamList,
   "CaseDetails"
 >> = ({ route, navigation }) => {
   React.useEffect(() => {
     const checkPermissions = async () => {
-      if (Platform.OS !== 'web') {
-        const { status } = await ImagePicker.requestCameraRollPermissionsAsync()
-        if (status !== 'granted') {
-          alert('You need to allow camera roll permissions')
+      if (Platform.OS !== "web") {
+        const {
+          status,
+        } = await ImagePicker.requestCameraRollPermissionsAsync();
+        if (status !== "granted") {
+          alert("You need to allow camera roll permissions");
         }
       }
-    }
+    };
 
-    checkPermissions()
-  }, [])
+    checkPermissions();
+  }, []);
 
-  const [uri, setUri] = React.useState<string>()
+  const [uri, setUri] = React.useState<string>();
 
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       aspect: [4, 3],
-      quality: 1
-    })
+      quality: 1,
+    });
 
     if (!result.cancelled) {
-      setUri(result.uri)
+      setUri(result.uri);
     }
-  }
+  };
 
   const { id } = route.params!;
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{`Case ${id}`}</Text>
-      <View style={styles.button}>
+      <View style={styles.inner}>
         <Button title="Select Photo" onPress={pickImage}></Button>
-        {uri && <>
-          <Image source={{ uri }} style={{ width: 200, height: 200, borderRadius: 50 }} />
-          <Button title="Get Blob" onPress={() => getBlob(uri)} />
-        </>
-
-        }
+        {uri && (
+          <>
+            <Image
+              source={{ uri }}
+              style={{ width: 200, height: 200, borderRadius: 50 }}
+            />
+          </>
+        )}
         <Button
           title="Open Modal"
           onPress={() => navigation.navigate("Modal")}
@@ -132,6 +100,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: palette.lightBlue,
+  },
+  inner: {
+    height: 100,
+
+    justifyContent: "space-around",
   },
   text: {
     fontSize: 30,
