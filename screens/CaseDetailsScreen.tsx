@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, StyleSheet, Button, Platform, Image } from "react-native";
+import { View, StyleSheet, Platform, Image } from "react-native";
+import { Text, Button } from "react-native-paper";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../types";
 import palette from "../styles/palette";
@@ -76,7 +77,9 @@ export const CaseDetailsScreen: React.FC<StackScreenProps<
     <View style={styles.container}>
       <Text style={styles.text}>{`Case ${id}`}</Text>
       <View style={styles.inner}>
-        <Button title="Select Photo" onPress={pickImage}></Button>
+        <Button mode="contained" onPress={pickImage}>
+          Select Photo
+        </Button>
         {uri && (
           <>
             <Image
@@ -85,10 +88,9 @@ export const CaseDetailsScreen: React.FC<StackScreenProps<
             />
           </>
         )}
-        <Button
-          title="Open Modal"
-          onPress={() => navigation.navigate("Modal")}
-        />
+        <Button mode="outlined" onPress={() => navigation.navigate("Modal")}>
+          Open Modal
+        </Button>
       </View>
     </View>
   );

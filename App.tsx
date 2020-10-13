@@ -13,6 +13,7 @@ import { MechanicNavigator } from "./navigation/MechanicNavigator";
 import { AuthContext } from "./AuthContext";
 import { AppLoading } from "expo";
 import { useFonts, Bangers_400Regular } from "@expo-google-fonts/bangers";
+import { Provider as PaperProvider } from "react-native-paper";
 
 const prefix = Linking.makeUrl("/");
 const linking = {
@@ -46,17 +47,19 @@ const Main = (): JSX.Element => {
   }
 
   return (
-    <NavigationContainer linking={linking} ref={navigationRef}>
-      {state?.authenticated ? (
-        state.role === "mechanic" ? (
-          <MechanicNavigator />
+    <PaperProvider>
+      <NavigationContainer linking={linking} ref={navigationRef}>
+        {state?.authenticated ? (
+          state.role === "mechanic" ? (
+            <MechanicNavigator />
+          ) : (
+            <RootNavigator />
+          )
         ) : (
-          <RootNavigator />
-        )
-      ) : (
-        <AuthNavigator />
-      )}
-    </NavigationContainer>
+          <AuthNavigator />
+        )}
+      </NavigationContainer>
+    </PaperProvider>
   );
 };
 export default function App() {
