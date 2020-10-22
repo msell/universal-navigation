@@ -1,5 +1,11 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity, Text, Platform } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  Platform,
+  View,
+} from "react-native";
 import { Link } from "@react-navigation/native";
 import palette from "../styles/palette";
 import commonStyle from "../styles/commonStyle";
@@ -17,7 +23,14 @@ export const Launch: React.FC<LaunchProps> = ({ id, description }) => {
         to={`/cases/${id}`}
         target={Platform.OS === "web" ? "_blank" : undefined}
       >
-        <Text style={[commonStyle.h1, { fontSize: 40 }]}>{description}</Text>
+        <View>
+          <Text
+            style={[commonStyle.h1, { fontSize: 33 }]}
+          >{`Launch ${id}`}</Text>
+          <Text style={[commonStyle.h2, { paddingTop: 20 }]}>
+            {description}
+          </Text>
+        </View>
       </Link>
     </TouchableOpacity>
   );

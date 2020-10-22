@@ -8,6 +8,12 @@ export default StyleSheet.create({
     fontWeight: "bold",
     fontFamily: "Bangers_400Regular",
   },
+  h2: {
+    color: palette.white,
+    fontSize: 30,
+    fontWeight: "bold",
+    fontFamily: "ShareTech_400Regular",
+  },
   textInput: {
     backgroundColor: "#fff",
     shadowColor: "#222",

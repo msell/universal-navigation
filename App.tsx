@@ -13,6 +13,7 @@ import { MechanicNavigator } from "./navigation/MechanicNavigator";
 import { AuthContext } from "./AuthContext";
 import { AppLoading } from "expo";
 import { useFonts, Bangers_400Regular } from "@expo-google-fonts/bangers";
+import { ShareTech_400Regular } from "@expo-google-fonts/share-tech";
 import { Provider as PaperProvider } from "react-native-paper";
 import { client } from "./services/apollo/client";
 import { ApolloProvider } from "@apollo/client";
@@ -39,6 +40,7 @@ const linking = {
 const Main = (): JSX.Element => {
   let [fontsLoaded] = useFonts({
     Bangers_400Regular,
+    ShareTech_400Regular,
   });
   const navigationRef = React.useRef<NavigationContainerRef>(null);
   useReduxDevToolsExtension(navigationRef);
