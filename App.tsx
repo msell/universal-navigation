@@ -14,7 +14,7 @@ import { AuthContext } from "./AuthContext";
 import { AppLoading } from "expo";
 import { useFonts, Bangers_400Regular } from "@expo-google-fonts/bangers";
 import { Provider as PaperProvider } from "react-native-paper";
-
+import { Asset, useAssets } from "expo-asset";
 const prefix = Linking.makeUrl("/");
 const linking = {
   // TODO: add your domain to prefixes for universal
@@ -39,6 +39,8 @@ const Main = (): JSX.Element => {
     Bangers_400Regular,
   });
   const navigationRef = React.useRef<NavigationContainerRef>(null);
+  useAssets([require("./assets/splash.png")]);
+
   useReduxDevToolsExtension(navigationRef);
   const { state } = React.useContext(AuthContext);
 
