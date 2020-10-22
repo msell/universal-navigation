@@ -14,6 +14,8 @@ import { AuthContext } from "./AuthContext";
 import { AppLoading } from "expo";
 import { useFonts, Bangers_400Regular } from "@expo-google-fonts/bangers";
 import { Provider as PaperProvider } from "react-native-paper";
+import { client } from "./services/apollo/client";
+import { ApolloProvider } from "@apollo/client";
 
 const prefix = Linking.makeUrl("/");
 const linking = {
@@ -47,19 +49,21 @@ const Main = (): JSX.Element => {
   }
 
   return (
-    <PaperProvider>
-      <NavigationContainer linking={linking} ref={navigationRef}>
-        {state?.authenticated ? (
-          state.role === "mechanic" ? (
-            <MechanicNavigator />
+    <ApolloProvider client={client}>
+      <PaperProvider>
+        <NavigationContainer linking={linking} ref={navigationRef}>
+          {state?.authenticated ? (
+            state.role === "mechanic" ? (
+              <MechanicNavigator />
+            ) : (
+              <RootNavigator />
+            )
           ) : (
-            <RootNavigator />
-          )
-        ) : (
-          <AuthNavigator />
-        )}
-      </NavigationContainer>
-    </PaperProvider>
+            <AuthNavigator />
+          )}
+        </NavigationContainer>
+      </PaperProvider>
+    </ApolloProvider>
   );
 };
 export default function App() {

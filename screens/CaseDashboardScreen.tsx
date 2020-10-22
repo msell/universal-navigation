@@ -1,22 +1,46 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
+import { Text } from "react-native-paper";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../types";
-import { Case } from "../components/Case";
+import { Launch } from "../components/Launch";
 import { CaseDashboardLayout } from "../layouts/CaseDashboardLayout";
+import { useRecentLaunchesQuery } from "../generated/codegen";
 
 interface CaseDashboardScreenProps {}
 type Props = CaseDashboardScreenProps &
   StackScreenProps<RootStackParamList, "CaseDashboard">;
-const cases = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 export const CaseDashboardScreen: React.FC<Props> = ({ navigation }) => {
+  const { data, loading, error } = useRecentLaunchesQuery();
+  if (error) {
+    return (
+      <View>
+        <Text>{error}</Text>
+      </View>
+    );
+  }
+  if (loading) {
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
   return (
     <CaseDashboardLayout>
       <View style={styles.container}>
         <View style={styles.grid}>
-          {cases.map((c) => (
-            <Case key={c} id={c} />
-          ))}
+          {data?.launchesPast.map((x) =>
+            x ? (
+              <Launch
+                key={x.id}
+                id={x.id as string}
+                description={x?.mission_name}
+              />
+            ) : null
+          )}
         </View>
       </View>
     </CaseDashboardLayout>

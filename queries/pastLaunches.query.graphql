@@ -1,0 +1,18 @@
+query recentLaunches {
+  launchesPast(limit: 10) {
+    mission_name
+    launch_year
+    launch_site {
+      site_name
+      site_name_long
+    }
+    id
+    details
+    links {
+      flickr_images
+      mission_patch_small
+      reddit_media
+    }
+    launch_success
+  }
+}

@@ -5,13 +5,15 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "graphql:codegen": "graphql-codegen --config codegen.yml"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/msell/universal-navigation.git"
   },
   "dependencies": {
+    "@apollo/client": "^3.2.5",
     "@expo-google-fonts/bangers": "^0.1.0",
     "@react-native-community/async-storage": "~1.12.0",
     "@react-native-community/masked-view": "0.1.10",
@@ -24,6 +26,7 @@
     "expo-image-picker": "~9.1.0",
     "expo-linking": "^1.0.3",
     "expo-status-bar": "~1.0.2",
+    "graphql": "^15.3.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.3.tar.gz",
@@ -36,6 +39,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
+    "@graphql-codegen/cli": "1.18.0",
+    "@graphql-codegen/introspection": "^1.18.0",
+    "@graphql-codegen/typescript": "1.17.11",
+    "@graphql-codegen/typescript-operations": "1.17.8",
+    "@graphql-codegen/typescript-react-apollo": "2.0.7",
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",
     "typescript": "~3.9.2"
